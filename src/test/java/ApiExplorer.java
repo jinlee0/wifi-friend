@@ -1,6 +1,6 @@
 /* Java 1.8 샘플 코드 */
 
-import com.wififriend.web.config.ApiConfig;
+import com.wififriend.web.global.config.ApiConfig;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
