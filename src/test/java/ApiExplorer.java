@@ -1,5 +1,7 @@
 /* Java 1.8 샘플 코드 */
 
+import com.wififriend.web.config.ApiConfig;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -10,7 +12,7 @@ import java.io.IOException;
 public class ApiExplorer {
     public static void main(String[] args) throws IOException {
         StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /*URL*/
-        urlBuilder.append("/" +  URLEncoder.encode("7a6d5a5141776c7337366349674743","UTF-8") ); /*인증키 (sample사용시에는 호출시 제한됩니다.)*/
+        urlBuilder.append("/" +  URLEncoder.encode(ApiConfig.KEY,"UTF-8") ); /*인증키 (sample사용시에는 호출시 제한됩니다.)*/
         urlBuilder.append("/" +  URLEncoder.encode("xml","UTF-8") ); /*요청파일타입 (xml,xmlf,xls,json) */
         urlBuilder.append("/" + URLEncoder.encode("CardSubwayStatsNew","UTF-8")); /*서비스명 (대소문자 구분 필수입니다.)*/
         urlBuilder.append("/" + URLEncoder.encode("1","UTF-8")); /*요청시작위치 (sample인증키 사용시 5이내 숫자)*/
