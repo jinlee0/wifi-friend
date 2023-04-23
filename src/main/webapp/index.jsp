@@ -9,5 +9,12 @@
 </h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
+<%
+    String a = "asdf";
+    for (int i = 0; i < 2; i++) {
+        System.out.println(i);
+    }
+%>
+<p><%= a%><p/>
 </body>
 </html>

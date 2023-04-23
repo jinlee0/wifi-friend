@@ -1,6 +1,6 @@
 package db;
 
-import com.wififriend.web.global.config.DbConfig;
+import com.wififriend.web.config.DbConfig;
 
 import java.sql.*;
 

@@ -1,4 +1,4 @@
-package com.wififriend.web.global.config;
+package com.wififriend.web.config;
 
 public class DbConfig {
     public static final String JDBC_DRIVER = "org.sqlite.JDBC";
