@@ -39,12 +39,12 @@ public class WifiClient {
                                 dto.getX_SWIFI_INSTL_MBY(),
                                 dto.getX_SWIFI_SVC_SE(),
                                 dto.getX_SWIFI_CMCWR(),
-                                Integer.parseInt(dto.getX_SWIFI_CNSTC_YEAR()),
+                                dto.getX_SWIFI_CNSTC_YEAR(),
                                 dto.getX_SWIFI_INOUT_DOOR(),
                                 dto.getX_SWIFI_REMARS3(),
                                 dto.getLAT(),
                                 dto.getLNT(),
-                                LocalDateTime.parse(dto.getWORK_DTTM(), formatter)
+                                dto.getWORK_DTTM()
                         )).collect(Collectors.toList());
             } catch (IOException e) {
                 throw new RuntimeException(e);

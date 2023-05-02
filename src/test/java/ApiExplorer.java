@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ApiExplorer {
     public static void main(String[] args) throws IOException {
-        byConstantURL();
+//        byConstantURL();
         byWifiClient();
     }
 
@@ -27,7 +27,7 @@ public class ApiExplorer {
         URL url = new URL(/*URL*/ApiConfig.BASE_URL + "/");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/xml");
+        conn.setRequestProperty("Content-type", "application/json");
         System.out.println("Response code: " + conn.getResponseCode()); /* 연결 자체에 대한 확인이 필요하므로 추가합니다.*/
         BufferedReader rd;
 
