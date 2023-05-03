@@ -6,6 +6,7 @@ import com.wififriend.web.entity.Wifi;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,7 @@ public class TransactionExecutor {
             T t = declaredConstructor.newInstance();
             Field[] fields = tClass.getDeclaredFields();
             for (Field field : fields) {
+                if (Modifier.isStatic(field.getModifiers())) continue;
                 field.setAccessible(true);
                 field.set(t, getValue(rs, field));
             }
