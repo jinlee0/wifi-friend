@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public abstract class RepositoryImplBase<T extends BaseEntity, K> implements Repository<T, K> {
     protected final TransactionExecutor tx = TransactionExecutor.getInstance();
+    protected List<T> cache; // 전체 데이터를 캐싱해둔다. 업데이트 시 캐시에도 반영해야 한다.
 
     protected final Class<T> tClass() {
         return (Class<T>) (((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
@@ -33,6 +34,9 @@ public abstract class RepositoryImplBase<T extends BaseEntity, K> implements Rep
 
     @Override
     public List<T> findAll() {
-        return tx.execQuery(String.format("select * from %s", tableName()), tClass());
+        if(cache == null) {
+            cache = tx.execQuery(String.format("select * from %s", tableName()), tClass());
+        }
+        return cache;
     }
 }
