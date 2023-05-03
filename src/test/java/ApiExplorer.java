@@ -19,7 +19,7 @@ public class ApiExplorer {
 
     private static void byWifiClient() {
         WifiClient wifiClient = new WifiClient();
-        List<Wifi> info = wifiClient.getInfo("서대문구", "서소문로");
+        List<Wifi> info = wifiClient.getInfo(1, 1000);
         System.out.println(info);
     }
 

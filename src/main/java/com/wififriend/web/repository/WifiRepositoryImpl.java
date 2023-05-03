@@ -10,7 +10,7 @@ public class WifiRepositoryImpl extends RepositoryImplBase<Wifi, String> {
 
     @Override
     public Optional<Wifi> findById(String id) {
-        List<Wifi> exec = tx.exec("select * from " + tableName() + " where id=" + id, tClass());
+        List<Wifi> exec = tx.execQuery("select * from " + tableName() + " where id=" + id, tClass());
         if(exec.isEmpty()) return Optional.empty();
         else return Optional.of(exec.get(0));
     }

@@ -25,12 +25,25 @@ public class TransactionExecutor {
         }
     }
 
-    public <T> List<T> exec(String sql, Class<T> tClass) {
+    public <T> List<T> execQuery(String sql, Class<T> tClass) {
         try {
             semaphore.acquire();
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
                 return rsAsEntityList(rs, tClass);
+            }
+        } catch (InterruptedException | SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            semaphore.release();
+        }
+    }
+
+    public int execUpdate(String sql) {
+        try {
+            semaphore.acquire();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                return ps.executeUpdate();
             }
         } catch (InterruptedException | SQLException e) {
             throw new RuntimeException(e);

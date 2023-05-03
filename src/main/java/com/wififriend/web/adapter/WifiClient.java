@@ -8,25 +8,24 @@ import lombok.Data;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class WifiClient {
 
     private final RestClient restClient = new RestClient();
 
-    public List<Wifi> getInfo(String district, String street) {
-        String url = makeUrl(district, street);
+    public List<Wifi> getInfo(int start, int end) {
+        String url = makeUrl(start, end);
         try (Response response = restClient.get(url)) {
             System.out.println(response.body());
             try {
                 assert response.body() != null;
                 WifiApiResponseDto wifiApiResponseDto = new Gson().fromJson(response.body().string(), WifiApiResponseDto.class);
                 List<WifiInfoDto> row = wifiApiResponseDto.getTbPublicWifiInfo().getRow();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
                 return row.stream()
                         .map(dto -> new Wifi(
                                 dto.getX_SWIFI_MGR_NO(),
@@ -52,11 +51,12 @@ public class WifiClient {
         }
     }
 
-    private String makeUrl(String district, String street) {
-        List<String> paths = new ArrayList<>();
-        paths.add(district);
-        paths.add(street);
-        return UrlMaker.makeUrl(ApiConfig.BASE_URL, paths, new ArrayList<>()) + "/";
+    private String makeUrl(int start, int end) {
+        return new StringJoiner("/", "", "/")
+                .add(ApiConfig.BASE_URL)
+                .add(String.valueOf(start))
+                .add(String.valueOf(end))
+                .toString();
     }
 
     @Data
