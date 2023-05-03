@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 @ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Wifi extends BaseEntity {
+    public static final String tableName = "wifi";
     private String managementNumber;
     private String district;
     private String name;
