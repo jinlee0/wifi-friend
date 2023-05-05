@@ -7,5 +7,11 @@ import java.util.UUID;
 @Getter
 @ToString
 public abstract class BaseEntity {
-    private final String id = UUID.randomUUID().toString();
+    protected final String id = UUID.randomUUID().toString();
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof  BaseEntity)) return false;
+        return id.equals(((BaseEntity) obj).getId());
+    }
 }

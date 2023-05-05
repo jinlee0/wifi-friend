@@ -18,24 +18,20 @@ public class DbConfig {
     static class DbInit {
 
         private DbInit() {
-            initDb();
+
         }
 
         private void initDb() {
             WifiClient wifiClient = new WifiClient();
             TransactionExecutor tx = TransactionExecutor.getInstance();
+            tx.execUpdate("delete from wifi where 1=1");
             try {
                 int last = 0;
                 while (true) {
                     List<Wifi> info = wifiClient.getInfo(last + 1, last + 1000);
                     for (Wifi wifi : info) {
-                        if (wifi.getManagementNumber().equals("-WF141587")) {
-                            System.out.println("here");
-                        }
                         String sql = makeInsertSql(wifi);
-                        System.out.println(sql);
-                        int affectedRows = tx.execUpdate(sql);
-                        System.out.println(affectedRows);
+                        tx.execUpdate(sql);
                     }
                     last += 1000;
                 }
@@ -62,8 +58,15 @@ public class DbConfig {
         }
 
         public static void main(String[] args) {
-            new DbInit();
+            new DbInit().initDb();
         }
     }
 
+    public static void updateWifiInfo() {
+        try {
+            new DbInit().initDb();
+        } catch (Exception e) {
+            System.out.println("Updating Done");;
+        }
+    }
 }

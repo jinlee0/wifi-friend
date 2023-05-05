@@ -36,7 +36,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-
+    // https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api
+    implementation group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
 }
 
 test {

@@ -20,4 +20,8 @@ public class CommandHandlerMap {
     public Optional<CommandHandler> get(String pathKey) {
         return Optional.ofNullable(map.get(pathKey));
     }
+
+    public boolean containsKey(String pathKey) {
+        return map.containsKey(pathKey);
+    }
 }

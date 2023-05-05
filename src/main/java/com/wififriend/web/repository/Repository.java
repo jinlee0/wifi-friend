@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface Repository<T extends BaseEntity, K> {
     Optional<T> findById(K id);
     List<T> findAll();
+    T save(T entity);
 }

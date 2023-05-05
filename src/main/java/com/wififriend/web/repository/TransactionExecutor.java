@@ -2,6 +2,7 @@ package com.wififriend.web.repository;
 
 import com.wififriend.web.config.DbConfig;
 import com.wififriend.web.entity.Wifi;
+import com.wififriend.web.utils.Reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -43,6 +44,7 @@ public class TransactionExecutor {
     public int execUpdate(String sql) {
         try {
             semaphore.acquire();
+            System.out.println(sql);
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 return ps.executeUpdate();
             }
@@ -70,8 +72,7 @@ public class TransactionExecutor {
             Constructor<T> declaredConstructor = tClass.getDeclaredConstructor();
             declaredConstructor.setAccessible(true);
             T t = declaredConstructor.newInstance();
-            Field[] fields = tClass.getDeclaredFields();
-            for (Field field : fields) {
+            for (Field field : Reflect.getAllFields(tClass)) {
                 if (Modifier.isStatic(field.getModifiers())) continue;
                 field.setAccessible(true);
                 field.set(t, getValue(rs, field));

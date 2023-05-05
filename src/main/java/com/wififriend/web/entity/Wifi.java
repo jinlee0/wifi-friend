@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.awt.geom.Point2D;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -58,8 +59,9 @@ public class Wifi extends BaseEntity {
         this.longitude = longitude;
     }
 
-    public LocalDateTime getWorkedDate() {
-        return LocalDateTime.parse(workedDate, formatter);
+    public double distanceFrom(double lat, double lnt) {
+        Point2D.Double from = new Point2D.Double(lat, lnt);
+        Point2D.Double wifiLocation = new Point2D.Double(Double.parseDouble(this.latitude), Double.parseDouble(this.longitude));
+        return wifiLocation.distance(from);
     }
-
 }
