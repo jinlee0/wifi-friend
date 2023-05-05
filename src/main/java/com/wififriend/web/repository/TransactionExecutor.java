@@ -85,7 +85,9 @@ public class TransactionExecutor {
 
     private Object getValue(ResultSet rs, Field field) {
         try {
-            return rs.getString(field.getName());
+            String value = rs.getString(field.getName());
+            if (value==null) value = "";
+            return value;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
